@@ -10,7 +10,7 @@ export const searchWithParamsSuccess = (data) => ({
   data,
 });
 
-export const searchWithParamsFail = (mess) => ({
+export const searchWithParamsFail = (err) => ({
   type: SEARCH.SEARCH_FAIL,
-  mess,
+  err,
 });

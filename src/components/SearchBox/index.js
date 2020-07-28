@@ -12,9 +12,9 @@ class SearchBox extends Component {
         { title: "q", value: "", type: "text" },
         { title: "center", value: "", type: "text" },
         { title: "description", value: "", type: "text" },
-        { title: "description_508", value: "", type: "text" },
+        // { title: "description_508", value: "", type: "text" },
         { title: "keywords", value: "", type: "text" },
-        { title: "location", value: "", type: "text" },
+        // { title: "location", value: "", type: "text" },
         {
           title: "media_type",
           options: ["image", "audio"],
@@ -22,12 +22,12 @@ class SearchBox extends Component {
           type: "dropdown",
         },
         { title: "nasa_id", value: "", type: "text" },
-        { title: "page", value: "", type: "number" },
+        // { title: "page", value: "", type: "number" },
         { title: "photographer", value: "", type: "text" },
-        { title: "secondary_creator", value: "", type: "text" },
+        // { title: "secondary_creator", value: "", type: "text" },
         { title: "title", value: "", type: "text" },
-        { title: "year_start", value: "", type: "date" },
-        { title: "year_end", value: "", type: "date" },
+        // { title: "year_start", value: "", type: "date" },
+        // { title: "year_end", value: "", type: "date" },
       ],
     };
   }

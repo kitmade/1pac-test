@@ -13,14 +13,14 @@ export default function SearchInput(props) {
       {props.type === "dropdown" ? (
         <select type={'range'}name={props.title} onChange={props.onChange}>
           {props.options.map((item) => (
-            <option>{item}</option>
+            <option key={item}>{item}</option>
           ))}
         </select>
       ) : (
         <input
           name={props.title}
-          min={props.type === "date" && 1000}
-          max={props.type === "date" && 9999}
+          min={props.type === "date" ? 1000: null}
+          max={props.type === "date" ? 9999: null}
           type={props.type === "date" ? "number" : props.type}
           value={props.value}
           onChange={props.onChange}
