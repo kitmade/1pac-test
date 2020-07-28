@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import Item from "./components/Item";
 
 class ListTable extends Component {
@@ -8,23 +7,18 @@ class ListTable extends Component {
     super(props);
     this.state = {
       data: [],
-      headers: [
-        "no",
-        "title",
-        "date_created",
-        "center",
-        "nasa_id",
-        "description",
-        "photographer",
-        "keywords",
-        "media_type",
-      ],
+      headers: [],
     };
   }
 
   // componentWillMount() {}
 
-  // componentDidMount() {}
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      headers: this.props.headers,
+    });
+  }
 
   // componentWillReceiveProps(nextProps) {}
 
@@ -32,40 +26,50 @@ class ListTable extends Component {
 
   // componentWillUpdate(nextProps, nextState) {}
 
-  // componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.data !== prevProps.data) {
+      this.setState({
+        ...this.state,
+        data: this.props.data,
+      });
+    }
+  }
 
   // componentWillUnmount() {}
 
   render() {
-    console.log(this.props.data);
     return (
-      <table>
-        <thead>
-          <tr>
-            {this.state.headers.map((header) => (
-              <th key={`${header} header`}>
-                {header
-                  .split("_")
-                  .map((e) => e[0].toUpperCase() + e.slice(1, e.length))
-                  .join(" ")}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.data.map((e, index) => (
-            <Item key={`item-row-${index}`}data={e} index={index} />
-          ))}
-        </tbody>
-      </table>
+      <div className="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              {this.state.headers.map((header) => (
+                <th key={`${header} header`}>
+                  {header
+                    .split("_")
+                    .map((e) => e[0].toUpperCase() + e.slice(1, e.length))
+                    .join(" ")}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.data.length > 0 ? (
+              this.state.data.map((e, index) => (
+                <Item key={`item-row-${index}`} data={e} index={index} />
+              ))
+            ) : (
+              <tr>
+                <td colspan={this.state.headers.length}>No Data</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
 
 // ListTable.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  data: state.nasaReducer.data,
-});
-
-export default connect(mapStateToProps, null)(ListTable);
+export default ListTable;

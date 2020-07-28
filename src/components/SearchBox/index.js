@@ -1,35 +1,19 @@
 import React, { Component } from "react";
 import SearchInput from "./components/SearchInput";
-import { connect } from "react-redux";
-import { searchWithParams } from "../../actions";
 // import PropTypes from "prop-types";
 
 class SearchBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTypes: [
-        { title: "q", value: "", type: "text" },
-        { title: "center", value: "", type: "text" },
-        { title: "description", value: "", type: "text" },
-        // { title: "description_508", value: "", type: "text" },
-        { title: "keywords", value: "", type: "text" },
-        // { title: "location", value: "", type: "text" },
-        {
-          title: "media_type",
-          options: ["image", "audio"],
-          value: "image",
-          type: "dropdown",
-        },
-        { title: "nasa_id", value: "", type: "text" },
-        // { title: "page", value: "", type: "number" },
-        { title: "photographer", value: "", type: "text" },
-        // { title: "secondary_creator", value: "", type: "text" },
-        { title: "title", value: "", type: "text" },
-        // { title: "year_start", value: "", type: "date" },
-        // { title: "year_end", value: "", type: "date" },
-      ],
+      searchTypes: [],
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      searchTypes: this.props.searchTypes,
+    });
   }
 
   onInputChange = (e) => {
@@ -59,12 +43,16 @@ class SearchBox extends Component {
 
   onSearch = () => {
     const params = {};
+    const { onSearch } = this.props;
     this.state.searchTypes.forEach((item) => {
       if (item.value !== "") {
         params[item.title] = item.value;
       }
     });
-    this.props.searchWithParams(params);
+
+    if (typeof onSearch === "function") {
+      onSearch(params);
+    }
   };
 
   render() {
@@ -79,8 +67,4 @@ class SearchBox extends Component {
 
 // SearchBox.propTypes = {};
 
-const mapDispatchToProps = (dispatch) => ({
-  searchWithParams: (params) => dispatch(searchWithParams(params)),
-});
-
-export default connect(null, mapDispatchToProps)(SearchBox);
+export default SearchBox;
