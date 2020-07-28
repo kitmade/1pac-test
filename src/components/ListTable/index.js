@@ -20,11 +20,11 @@ class ListTable extends Component {
     });
   }
 
-  // componentWillReceiveProps(nextProps) {}
+  // componentWillReceiveProps(nextProps) {  }
 
   // shouldComponentUpdate(nextProps, nextState) {}
 
-  // componentWillUpdate(nextProps, nextState) {}
+  // componentWillUpdate(nextProps, nextState) {  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.data !== prevProps.data) {
@@ -39,33 +39,31 @@ class ListTable extends Component {
 
   render() {
     return (
-      <div className="table-wrapper">
-        <table>
-          <thead>
+      <table>
+        <thead>
+          <tr>
+            {this.state.headers.map((header) => (
+              <th key={`${header} header`}>
+                {header
+                  .split("_")
+                  .map((e) => e[0].toUpperCase() + e.slice(1, e.length))
+                  .join(" ")}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {this.state.data.length > 0 ? (
+            this.state.data.map((e, index) => (
+              <Item key={`item-row-${index}`} data={e} index={index} />
+            ))
+          ) : (
             <tr>
-              {this.state.headers.map((header) => (
-                <th key={`${header} header`}>
-                  {header
-                    .split("_")
-                    .map((e) => e[0].toUpperCase() + e.slice(1, e.length))
-                    .join(" ")}
-                </th>
-              ))}
+              <td colSpan={this.state.headers.length}>No Data</td>
             </tr>
-          </thead>
-          <tbody>
-            {this.state.data.length > 0 ? (
-              this.state.data.map((e, index) => (
-                <Item key={`item-row-${index}`} data={e} index={index} />
-              ))
-            ) : (
-              <tr>
-                <td colspan={this.state.headers.length}>No Data</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+          )}
+        </tbody>
+      </table>
     );
   }
 }

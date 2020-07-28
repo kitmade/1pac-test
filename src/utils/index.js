@@ -1,7 +1,6 @@
 export const convertNasaData = (data) => {
   return data.map((item) => {
     const dateCreated = new Date(item.data[0].date_created);
-    console.log(123, item.data[0]);
     return {
       ...item,
       data: [
@@ -18,4 +17,15 @@ export const convertNasaData = (data) => {
       ],
     };
   });
+};
+
+export const sortData = (arr, cond) => {
+  if (cond.sort === "desc") {
+    return arr.sort((a, b) =>
+      a.data[0][cond.orderBy] > b.data[0][cond.orderBy] ? -1 : 1
+    );
+  }
+  return arr.sort((a, b) =>
+    a.data[0][cond.orderBy] > b.data[0][cond.orderBy] ? 1 : -1
+  );
 };

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import SearchBox from "../../components/SearchBox";
 import ListTable from "../../components/ListTable";
-import { searchWithParams } from "../../actions";
+import { searchWithParams, sortData } from "../../actions";
+import SortFilter from "../../components/SortFilter";
 
 const searchTypes = [
   { title: "q", value: "", type: "text" },
@@ -32,13 +33,46 @@ const tableHeaders = [
   // "media_type",
 ];
 
+const filters = [
+  {
+    title: "Oldest",
+    orderBy: "date_created",
+    sort: "asc",
+  },
+  {
+    title: "Newest",
+    orderBy: "date_created",
+    sort: "desc",
+  },
+  {
+    title: "A-Z",
+    orderBy: "title",
+    sort: "asc",
+  },
+  {
+    title: "Z-A",
+    orderBy: "title",
+    sort: "desc",
+  },
+];
+
 class HomePage extends Component {
+  componentWillUnmount() {
+    console.log(123);
+    localStorage.clear();
+  }
+
   render() {
-    const { searchWithParams, data } = this.props;
+    const { searchWithParams, data, sortData } = this.props;
     return (
       <div>
-        <SearchBox searchTypes={searchTypes} onSearch={searchWithParams} />
-        <ListTable headers={tableHeaders} data={data} />
+        <div>
+          <SearchBox searchTypes={searchTypes} onSearch={searchWithParams} />
+          <SortFilter filters={filters} onSelected={sortData} />
+        </div>
+        <div>
+          <ListTable headers={tableHeaders} data={data} />
+        </div>
       </div>
     );
   }
@@ -49,6 +83,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   searchWithParams: (params) => dispatch(searchWithParams(params)),
+  sortData: (value) => dispatch(sortData(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -1,7 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-export default function SortFilter() {
-    const [filters, setFilters]
-  
-    return <div></div>;
-}
+const SortFilter = (props) => {
+  const { filters, onSelected } = props;
+
+  const onOptionSelect = (e) => {
+    const { value } = e.target;
+    const { orderBy, sort } = filters.filter(
+      (filter) => filter.title === value
+    )[0];
+    const cond = { orderBy, sort };
+    if (typeof onSelected === "function") {
+      onSelected(cond);
+    }
+  };
+
+  return (
+    <select onChange={onOptionSelect}>
+      {Array.isArray(filters) &&
+        filters.map((item) => <option>{item.title}</option>)}
+    </select>
+  );
+};
+
+export default SortFilter;
