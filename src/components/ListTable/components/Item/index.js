@@ -9,6 +9,7 @@ function Item(props) {
       {Object.values(data[0]).map((e, idx) => (
         <td key={`item-${props.index}-${idx}`}>{e ? e : ""}</td>
       ))}
+      <td></td>
     </tr>
   );
 }

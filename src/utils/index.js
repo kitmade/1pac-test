@@ -6,7 +6,9 @@ export const convertNasaData = (data) => {
       data: [
         {
           title: item.data[0].title,
-          date_created: `${dateCreated.getFullYear()}/${dateCreated.getMonth()}/${dateCreated.getDate()}`,
+          date_created: `${dateCreated.getFullYear()}/${
+            dateCreated.getMonth() + 1
+          }/${dateCreated.getDate()}`,
           // keywords:
           //   item.data[0].keywords !== undefined
           //     ? item.data[0].keywords.length === 1

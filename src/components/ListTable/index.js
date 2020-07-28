@@ -50,6 +50,7 @@ class ListTable extends Component {
                   .join(" ")}
               </th>
             ))}
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -59,7 +60,7 @@ class ListTable extends Component {
             ))
           ) : (
             <tr>
-              <td colSpan={this.state.headers.length}>No Data</td>
+              <td colSpan={this.state.headers.length + 1}>No Data</td>
             </tr>
           )}
         </tbody>

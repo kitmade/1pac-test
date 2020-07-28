@@ -58,19 +58,18 @@ const filters = [
 
 class HomePage extends Component {
   componentWillUnmount() {
-    console.log(123);
     localStorage.clear();
   }
 
   render() {
     const { searchWithParams, data, sortData } = this.props;
     return (
-      <div>
+      <div className="home-page">
         <div>
           <SearchBox searchTypes={searchTypes} onSearch={searchWithParams} />
           <SortFilter filters={filters} onSelected={sortData} />
         </div>
-        <div>
+        <div className="table-wrapper">
           <ListTable headers={tableHeaders} data={data} />
         </div>
       </div>
