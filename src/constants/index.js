@@ -1,0 +1,5 @@
+export const SEARCH = {
+    SEARCH: 'SEARCH',
+    SEARCH_SUCCESS: 'SEARCH_SUCCESS',
+    SEARCH_FAIL: 'SEARCH_FAIL'
+};
