@@ -26,13 +26,18 @@ function* searchWithParams({ params }) {
 }
 
 function* sortData({ payload }) {
-  try {
-    const data = yield JSON.parse(localStorage.getItem("data"));
-    const sortedData = sortDataUtil(data, payload);
-    yield localStorage.setItem("data", JSON.stringify(sortedData));
-    yield put(sortDataSuccess(JSON.parse(localStorage.getItem("data"))));
-  } catch (e) {
-    yield put(sortDataFail(e.message));
+  if (
+    localStorage.getItem("data") &&
+    JSON.parse(localStorage.getItem("data")).length > 1
+  ) {
+    try {
+      const data = yield JSON.parse(localStorage.getItem("data"));
+      const sortedData = sortDataUtil(data, payload);
+      yield localStorage.setItem("data", JSON.stringify(sortedData));
+      yield put(sortDataSuccess(JSON.parse(localStorage.getItem("data"))));
+    } catch (e) {
+      yield put(sortDataFail(e.message));
+    }
   }
 }
 

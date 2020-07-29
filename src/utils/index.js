@@ -17,6 +17,7 @@ export const convertNasaData = (data) => {
           //     : "",
         },
       ],
+      nasa_id: item.data[0].nasa_id,
     };
   });
 };

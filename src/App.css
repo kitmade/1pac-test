@@ -125,7 +125,7 @@ table thead th::after {
   cursor: pointer;
 }
 
-.deleted-tr {
+.removed-tr {
   color: rgba(3, 3, 3, 0.151);
 }
 

@@ -28,6 +28,32 @@ class ListTable extends Component {
     });
   }
 
+  onItemRemove = (params) => {
+    this.setState({
+      ...this.state,
+      data: this.state.data.map((e) => {
+        if (e.nasa_id === params.nasa_id) {
+          return { ...e, removed: params.status };
+        } else {
+          return e;
+        }
+      }),
+    });
+  };
+
+  onItemLike = (params) => {
+    this.setState({
+      ...this.state,
+      data: this.state.data.map((e) => {
+        if (e.nasa_id === params.nasa_id) {
+          return { ...e, liked: params.status };
+        } else {
+          return e;
+        }
+      }),
+    });
+  };
+
   // componentWillReceiveProps(nextProps) {  }
 
   // shouldComponentUpdate(nextProps, nextState) {}
@@ -38,14 +64,26 @@ class ListTable extends Component {
     if (this.props.data !== prevProps.data) {
       this.setState({
         ...this.state,
-        data: this.props.data,
+        data: this.props.data.map((e) => ({
+          ...e,
+          liked: false,
+          removed: false,
+        })),
       });
     }
+    // if (prevState.viewType !== this.state.viewType) {
+    //   this.setState({
+    //     ...this.state,
+    //   });
+    // }
   }
 
   // componentWillUnmount() {}
 
   render() {
+    const filtedData = this.state.data.filter(
+      (e) => e[this.state.viewType.toLowerCase()] === true
+    );
     return (
       <div>
         <div className="table-wrapper">
@@ -64,15 +102,38 @@ class ListTable extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.data.length > 0 ? (
-                this.state.data.map((e, index) => (
-                  <Item key={`item-row-${index}`} data={e} index={index} />
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={this.state.headers.length + 1}>No Data</td>
-                </tr>
-              )}
+              {this.state.viewType !== "All" &&
+                (filtedData.length > 0 ? (
+                  filtedData.map((e, index) => (
+                    <Item
+                      key={`item-row-${index}`}
+                      data={e}
+                      index={index}
+                      onItemDelete={this.onItemDelete}
+                      onItemLike={this.onItemLike}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={this.state.headers.length + 1}>No Data</td>
+                  </tr>
+                ))}
+              {this.state.viewType === "All" &&
+                (this.state.data.length > 0 ? (
+                  this.state.data.map((e, index) => (
+                    <Item
+                      key={`item-row-${index}`}
+                      data={e}
+                      index={index}
+                      onItemRemove={this.onItemRemove}
+                      onItemLike={this.onItemLike}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={this.state.headers.length + 1}>No Data</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

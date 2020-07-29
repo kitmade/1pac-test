@@ -9,17 +9,23 @@ const EditInput = (props) => {
   return <input value={input} onChange={onInputChange}></input>;
 };
 function Item(props) {
-  const { data } = props.data;
-  const [likeStt, setLikeStt] = useState(false);
-  const [deleteStt, setDeleteStt] = useState(false);
+  const { data, liked, removed, nasa_id } = props.data;
+  const [likeStt, setLikeStt] = useState(liked);
+  const [removeStt, setRemoveStt] = useState(removed);
   const [editStt, setEditStt] = useState(false);
 
   const onLikeChange = (e) => {
     setLikeStt(e.target.checked);
+    if (typeof props.onItemLike === "function") {
+      props.onItemLike({ nasa_id, status: !likeStt });
+    }
   };
 
-  const onDeleteChange = (e) => {
-    setDeleteStt(!deleteStt);
+  const onRemoveChange = (e) => {
+    setRemoveStt(!removeStt);
+    if (typeof props.onItemRemove === "function") {
+      props.onItemRemove({ nasa_id, status: !removeStt });
+    }
   };
 
   const onEditChange = (e) => {
@@ -27,7 +33,7 @@ function Item(props) {
   };
 
   return (
-    <tr className={deleteStt ? "deleted-tr" : ""}>
+    <tr className={removeStt ? "removed-tr" : ""}>
       <td>{props.index}</td>
       {Object.values(data[0]).map((e, idx) => {
         return (
@@ -43,11 +49,11 @@ function Item(props) {
               type="checkbox"
               checked={likeStt}
               onChange={onLikeChange}
-              disabled={deleteStt}
+              disabled={removeStt}
             />
             <label>{likeStt ? `liked` : `like`}</label>
           </div>
-          <p onClick={onDeleteChange}>{deleteStt ? `undo` : "delete"}</p>
+          <p onClick={onRemoveChange}>{removeStt ? `undo` : "remove"}</p>
           <p onClick={onEditChange}>{editStt ? "done" : "edit"}</p>
         </div>
       </td>
