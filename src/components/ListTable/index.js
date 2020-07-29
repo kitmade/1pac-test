@@ -95,6 +95,7 @@ class ListTable extends Component {
         : this.state.data.filter(
             (e) => e[this.state.viewType.toLowerCase()] === true
           );
+    console.log("123a", filtedData.length);
     return (
       <div>
         <div className="table-wrapper">
@@ -114,7 +115,7 @@ class ListTable extends Component {
             </thead>
             <tbody>
               {filtedData.length > 0 ? (
-                this.state.data.map((e, index) => (
+                filtedData.map((e, index) => (
                   <Item
                     key={`item-row-${index}`}
                     data={e}
