@@ -17,7 +17,9 @@ const SortFilter = (props) => {
   return (
     <select onChange={onOptionSelect}>
       {Array.isArray(filters) &&
-        filters.map((item) => <option>{item.title}</option>)}
+        filters.map((item, index) => (
+          <option key={`filer-${index}`}>{item.title}</option>
+        ))}
     </select>
   );
 };

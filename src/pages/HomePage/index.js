@@ -69,9 +69,7 @@ class HomePage extends Component {
           <SearchBox searchTypes={searchTypes} onSearch={searchWithParams} />
           <SortFilter filters={filters} onSelected={sortData} />
         </div>
-        <div className="table-wrapper">
-          <ListTable headers={tableHeaders} data={data} />
-        </div>
+        <ListTable headers={tableHeaders} data={data} />
       </div>
     );
   }

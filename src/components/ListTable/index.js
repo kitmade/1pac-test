@@ -8,8 +8,16 @@ class ListTable extends Component {
     this.state = {
       data: [],
       headers: [],
+      viewType: "All",
     };
   }
+
+  onViewTypeChange = (viewType) => {
+    this.setState({
+      ...this.state,
+      viewType,
+    });
+  };
 
   // componentWillMount() {}
 
@@ -39,32 +47,46 @@ class ListTable extends Component {
 
   render() {
     return (
-      <table>
-        <thead>
-          <tr>
-            {this.state.headers.map((header) => (
-              <th key={`${header} header`}>
-                {header
-                  .split("_")
-                  .map((e) => e[0].toUpperCase() + e.slice(1, e.length))
-                  .join(" ")}
-              </th>
-            ))}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.data.length > 0 ? (
-            this.state.data.map((e, index) => (
-              <Item key={`item-row-${index}`} data={e} index={index} />
-            ))
-          ) : (
-            <tr>
-              <td colSpan={this.state.headers.length + 1}>No Data</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <div>
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                {this.state.headers.map((header) => (
+                  <th key={`${header} header`}>
+                    {header
+                      .split("_")
+                      .map((e) => e[0].toUpperCase() + e.slice(1, e.length))
+                      .join(" ")}
+                  </th>
+                ))}
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.data.length > 0 ? (
+                this.state.data.map((e, index) => (
+                  <Item key={`item-row-${index}`} data={e} index={index} />
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={this.state.headers.length + 1}>No Data</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="tabs-wrapper">
+          {["All", "Liked", "Removed"].map((e) => (
+            <div
+              className={this.state.viewType === e ? "tab-selected" : ""}
+              onClick={() => {
+                this.onViewTypeChange(e);
+              }}
+            >{`${e} View`}</div>
+          ))}
+        </div>
+      </div>
     );
   }
 }
