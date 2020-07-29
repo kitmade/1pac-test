@@ -33,7 +33,7 @@ class ListTable extends Component {
       ...this.state,
       data: this.state.data.map((e) => {
         if (e.nasa_id === params.nasa_id) {
-          return { ...e, removed: params.status };
+          return { ...e, removed: params.status, liked: false };
         } else {
           return e;
         }
@@ -47,6 +47,19 @@ class ListTable extends Component {
       data: this.state.data.map((e) => {
         if (e.nasa_id === params.nasa_id) {
           return { ...e, liked: params.status };
+        } else {
+          return e;
+        }
+      }),
+    });
+  };
+
+  onItemEdit = (params) => {
+    this.setState({
+      ...this.state,
+      data: this.state.data.map((e) => {
+        if (e.nasa_id === params.nasa_id) {
+          return { ...e, data: params.data };
         } else {
           return e;
         }
@@ -71,19 +84,17 @@ class ListTable extends Component {
         })),
       });
     }
-    // if (prevState.viewType !== this.state.viewType) {
-    //   this.setState({
-    //     ...this.state,
-    //   });
-    // }
   }
 
   // componentWillUnmount() {}
 
   render() {
-    const filtedData = this.state.data.filter(
-      (e) => e[this.state.viewType.toLowerCase()] === true
-    );
+    const filtedData =
+      this.state.viewType === "All"
+        ? this.state.data
+        : this.state.data.filter(
+            (e) => e[this.state.viewType.toLowerCase()] === true
+          );
     return (
       <div>
         <div className="table-wrapper">
@@ -102,38 +113,22 @@ class ListTable extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.viewType !== "All" &&
-                (filtedData.length > 0 ? (
-                  filtedData.map((e, index) => (
-                    <Item
-                      key={`item-row-${index}`}
-                      data={e}
-                      index={index}
-                      onItemDelete={this.onItemDelete}
-                      onItemLike={this.onItemLike}
-                    />
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={this.state.headers.length + 1}>No Data</td>
-                  </tr>
-                ))}
-              {this.state.viewType === "All" &&
-                (this.state.data.length > 0 ? (
-                  this.state.data.map((e, index) => (
-                    <Item
-                      key={`item-row-${index}`}
-                      data={e}
-                      index={index}
-                      onItemRemove={this.onItemRemove}
-                      onItemLike={this.onItemLike}
-                    />
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={this.state.headers.length + 1}>No Data</td>
-                  </tr>
-                ))}
+              {filtedData.length > 0 ? (
+                this.state.data.map((e, index) => (
+                  <Item
+                    key={`item-row-${index}`}
+                    data={e}
+                    index={index}
+                    onItemRemove={this.onItemRemove}
+                    onItemLike={this.onItemLike}
+                    onItemEdit={this.onItemEdit}
+                  />
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={this.state.headers.length + 1}>No Data</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
