@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item should match snapshot 1`] = `
+<tr
+  className=""
+>
+  <td />
+  <td>
+    test
+  </td>
+  <td>
+    2000/01/01
+  </td>
+  <td>
+    <div
+      className="table-other-block"
+    >
+      <div>
+        <input
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <label>
+          like
+        </label>
+      </div>
+      <p
+        onClick={[Function]}
+      >
+        remove
+      </p>
+      <p
+        onClick={[Function]}
+      >
+        edit
+      </p>
+    </div>
+  </td>
+</tr>
+`;
+
+exports[`Item should match snapshot when data is empty 1`] = `
+<tr
+  className=""
+>
+  <td />
+  <td>
+    <div
+      className="table-other-block"
+    >
+      <div>
+        <input
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <label>
+          like
+        </label>
+      </div>
+      <p
+        onClick={[Function]}
+      >
+        remove
+      </p>
+      <p
+        onClick={[Function]}
+      >
+        edit
+      </p>
+    </div>
+  </td>
+</tr>
+`;

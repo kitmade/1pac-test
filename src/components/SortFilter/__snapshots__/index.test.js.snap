@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortFilter should match snapshot 1`] = `
+<select
+  onChange={[Function]}
+>
+  <option
+    value="test-asc"
+  >
+    test-asc
+  </option>
+  <option
+    value="test-desc"
+  >
+    test-desc
+  </option>
+</select>
+`;
+
+exports[`SortFilter should match snapshot with filters is empty 1`] = `
+<select
+  onChange={[Function]}
+/>
+`;

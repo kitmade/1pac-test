@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const EditInput = (props) => {
+export const EditInput = (props) => {
   const [input, setInput] = useState(props.value);
   const onInputChange = (e) => {
     setInput(e.target.value);
@@ -9,7 +9,13 @@ const EditInput = (props) => {
       props.onInputChange(e);
     }
   };
-  return <input value={input} onChange={onInputChange}></input>;
+  return (
+    <input
+      data-testid="edit-item-input"
+      value={input}
+      onChange={onInputChange}
+    ></input>
+  );
 };
 function Item(props) {
   const { data, liked, removed, nasa_id } = props.data;

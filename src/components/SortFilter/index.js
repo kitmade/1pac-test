@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const SortFilter = (props) => {
   const { filters, onSelected } = props;
@@ -18,10 +19,23 @@ const SortFilter = (props) => {
     <select onChange={onOptionSelect}>
       {Array.isArray(filters) &&
         filters.map((item, index) => (
-          <option key={`filer-${index}`}>{item.title}</option>
+          <option key={`filer-${index}`} value={item.title}>
+            {item.title}
+          </option>
         ))}
     </select>
   );
+};
+
+SortFilter.propTypes = {
+  onSelected: PropTypes.func,
+  filter: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      orderBy: PropTypes.string,
+      sort: PropTypes.string,
+    })
+  ),
 };
 
 export default SortFilter;
